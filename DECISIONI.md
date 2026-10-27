@@ -72,3 +72,25 @@ chiesto a te, con il motivo. Le più importanti sono anche nel RAPPORTO.md.
     L'HTML contiene comunque indirizzo e link alla mappa, così funzionano anche senza JS;
     il menu senza JS mostra un avviso.
 22. **Avviso «Demo di proposta»** in cima alla pagina: serve quando mostri il sito ai gestori.
+
+## Fase 4 — Verifica
+
+23. **Screenshot con Playwright + Edge di sistema** (`strumenti/anteprime.mjs`), a pagina
+    intera, in `docs/anteprime/quartin-390.png` e `quartin-1280.png`. Ho aggiunto
+    `strumenti/controlli.mjs`: contrasto AA di ogni testo, bersagli ≥ 44 px, contorno di
+    focus con Tab, scorrimento orizzontale, `alt`, menu «Sezioni», reduced-motion.
+    Esito finale: nessun problema a 390 e a 1280 px.
+24. Correzioni fatte (al massimo due giri ciascuna, tutte risolte):
+    - scorrimento orizzontale a 1280 px causato dal riquadro rosso dietro la foto
+      d'apertura → `overflow-x: clip` sulla sezione (1 giro);
+    - virgolette di chiusura delle fasce-slogan tagliate in basso → riposizionate e
+      ingrandite (1 giro);
+    - foto d'apertura su mobile: l'ippopotamo toccava il bordo → ritaglio 5:4 più alto (1 giro);
+    - ovali dei prezzi troppo stretti per «2,50» → più larghi; l'ovale del titolo
+      «Quartini» toccava la riga → margine corretto (2 giri);
+    - galleria desktop con un buco sotto l'ippopotamo → griglia rifatta e spazio «foto
+      mancante» grande come una foto (2 giri);
+    - «Vieni a trovarci» su desktop con mezza colonna vuota → frase dello zio Tony su tutta
+      la larghezza sotto indirizzo e contatti (1 giro).
+25. **Nome in testata e nel piede come testo semplice** (non più maiuscolo, rosso e
+    condensato): accanto all'ippopotamo sembrava un logo rifatto con un altro font.
