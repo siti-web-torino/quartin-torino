@@ -56,6 +56,7 @@
   /* passi intermedi chiesti per due elementi precisi */
   --fs-detto: clamp(1.375rem, 1.183rem + 0.787vw, 1.8125rem); /* 22 → 29 px, frasi dello zio Tony */
   --fs-hero: clamp(2.5rem, 1.843rem + 2.697vw, 4rem);          /* 40 → 64 px, titolo d'apertura */
+  --fs-didascalia: 0.9375rem;                                    /* 15 px fissi, didascalie della galleria */
 
   /* Scala delle spaziature */
   --sp-3xs: 0.25rem;
@@ -624,14 +625,34 @@ html:not(.js) .nav-bottone { display: none; }
 /* ---------- Il locale ---------- */
 .locale { border-top: 1px solid var(--carta-scura); }
 .locale-manca { margin-top: var(--sp-m); }
+/* Sotto i 768 px: una colonna, tutte le foto in 4:5 */
 .galleria {
   display: grid;
-  gap: var(--sp-xl);
+  gap: var(--sp-m); /* 24 px */
   margin-top: var(--sp-xl);
 }
-.galleria-a { --giro: -1deg; }
-.galleria-b { margin-left: var(--sp-l); }
-.galleria-c { max-width: 17rem; }
+/* tre figure identiche: stessa cornice, stessa ombra leggera, tutte dritte */
+.galleria .stampa {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.08);
+  transform: none;
+}
+/* in colonna la foto prende lo spazio che resta sopra la didascalia, anche quando la
+   griglia allunga la figura per pareggiare le righe */
+.galleria img {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+/* il muso è a sinistra e «STAI SOFT» a destra: 42% tiene dentro tutti e due anche a 768 px */
+.galleria-a img { object-position: 42% center; }
+.galleria-b img { object-position: center 60%; }
+.galleria-c img { object-position: center; }
+.galleria figcaption { font-size: var(--fs-didascalia); }
 
 /* ---------- Vieni a trovarci ---------- */
 .vieni {
@@ -742,14 +763,15 @@ html:not(.js) .nav-bottone { display: none; }
   .menu-indice ul { flex-wrap: wrap; padding: 0; overflow: visible; }
   .menu-gruppo { scroll-margin-top: 0; }
 
-  /* tre foto in fila: colonne proporzionali alla forma di ogni foto, così hanno la stessa altezza */
+  /* ippopotamo grande a sinistra su due righe, le altre due a destra una per riga */
   .galleria {
-    grid-template-columns: 35fr 44fr 27fr;
-    align-items: start;
-    gap: var(--sp-l);
+    grid-template-columns: 7fr 5fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: stretch;
   }
-  .galleria-b { margin-left: 0; }
-  .galleria-c { max-width: none; }
+  .galleria-a { grid-row: 1 / span 2; }
+  .galleria-b, .galleria-c { grid-column: 2; }
+  .galleria-b img, .galleria-c img { aspect-ratio: 4 / 3; }
 
   .contatti { grid-template-columns: 1fr 1fr; }
   .contatti-voce:first-child { grid-column: 1 / -1; }

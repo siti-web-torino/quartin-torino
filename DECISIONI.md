@@ -137,3 +137,22 @@ Fatte tutte. Dove ho dovuto scegliere un dettaglio, ecco come e perché.
 36. **Galleria**: tre foto in fila con colonne proporzionali alla forma di ciascuna, così
     hanno la stessa altezza; la nota [DA CONFERMARE] è sotto il titolo (sostituisce la 15
     per la parte del riquadro vuoto).
+
+## Revisione della galleria (28/10/2026)
+
+37. **Galleria rifatta come chiesto** (sostituisce la 36 e, per la galleria, la 34):
+    da 768 px griglia 7fr/5fr con l'ippopotamo su due righe a sinistra e le altre due foto
+    a destra; sotto i 768 px una colonna con tutte le foto in 4:5. Le tre figure sono
+    identiche: cornice bianca di 8 px, ombra `0 2px 12px rgb(0 0 0 / .08)`, nessuna rotazione.
+    Didascalie a 15 px (nuovo passo fisso `--fs-didascalia`), «Coppette d'acciaio, all'aperitivo.».
+38. **Proporzioni non sempre esatte, di proposito**: la griglia pareggia le altezze, quindi
+    la foto si allunga per riempire la figura (`object-fit: cover`). A 1280 px l'ippopotamo
+    è 4:5 esatto e le due a destra 1,24 invece di 1,33; a 768 px l'ippopotamo diventa 0,74
+    perché la didascalia dello sgabello va su due righe. Il 4:5 e il 4:3 restano la misura
+    di partenza (`aspect-ratio`), la figura in colonna dà alla foto lo spazio sopra la didascalia.
+39. **Inquadrature**: sgabello `center 60%`, coppette `center` come chiesto; ippopotamo
+    `42% center`, scelto in due giri: al 30% a 768 px si tagliava la T di «SOFT», al 42%
+    restano dentro sia il muso sia la scritta.
+40. **Le coppette a destra su desktop sono morbide**: il ritaglio senza la persona è largo
+    383 px e qui viene mostrato a circa 460 px in 4:3, quindi si vede metà dell'altezza
+    originale, un po' ingrandita. Serve la foto originale per fare meglio.
