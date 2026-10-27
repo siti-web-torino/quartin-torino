@@ -42,7 +42,7 @@ orari: [
   { giorni: 'Martedì–Domenica', ore: '…' },
 ],
 
-// Telefono confermato: diventa un link da toccare per chiamare
+// Telefono confermato: resta il link da toccare per chiamare, sparisce il riquadro giallo
 telefono: { numero: '366 691 2120', confermato: true },
 
 // Social ed email
@@ -61,6 +61,11 @@ Le due foto del menu si agganciano ai gruppi con `foto: 'foto-menu-quartini'` /
 
 **Indirizzo e link alla mappa** stanno in `QUARTIN` (`via`, `zona`, `mappa`) e anche
 nell'HTML, così funzionano pure senza JavaScript: se cambiano, aggiornali in tutti e due.
+L'indirizzo con il CAP c'è anche nel JSON-LD (`BarOrPub`) dentro `<head>`: quando orari e
+telefono saranno confermati si possono aggiungere lì (`openingHours`, `telephone`).
+
+**Anteprima per i social** (`og:*` in `<head>`): l'immagine `img/og-vetrina.jpg` (1200×630)
+si rigenera con `node strumenti/og-immagine.mjs` dopo aver cambiato `strumenti/og.html`.
 
 **Testi fissi** (titoli, frase d'apertura, frasi dello zio Tony, slogan, didascalie):
 direttamente in `index.html`. Gli slogan e le frasi dello zio Tony sono copiati alla lettera
@@ -74,8 +79,11 @@ dopo `<body>`. Toglilo quando il locale approva.
 1. Metti l'immagine in `img-originali/` (non viene mai modificata).
 2. Aggiungi una riga all'elenco `foto` in [strumenti/ottimizza-foto.mjs](strumenti/ottimizza-foto.mjs)
    (eventuale ritaglio in pixel).
-3. `node strumenti/ottimizza-foto.mjs` → WebP in `img/`, lato lungo massimo 1600 px, senza EXIF.
-4. Usa il file in `index.html` con `width`, `height` e un `alt` che descriva la foto.
+3. `node strumenti/ottimizza-foto.mjs` → WebP q70 in `img/`, lato lungo massimo 1600 px,
+   senza EXIF, più una variante `-480.webp` se l'originale è abbastanza largo. Lo script non
+   ingrandisce mai: le immagini di adesso sono larghe 383–700 px, quindi non esistono
+   versioni più grandi. Con foto originali più grandi, aggiungi larghezze a `VARIANTI`.
+4. Usa il file in `index.html` con `width`, `height`, `srcset`/`sizes` e un `alt` che descriva la foto.
 
 Lo script usa `sharp` già presente in altri progetti sul PC (`../brezil`,
 `../lounge-barber-shop`, `../flow-running-club`); in alternativa imposta la variabile
@@ -100,6 +108,7 @@ Microsoft Edge già installato, quindi non scaricano niente.
 
 - togliere `<meta name="robots" content="noindex, nofollow">` da `index.html`;
 - aprire `robots.txt` (ora `Disallow: /`);
+- rendere assoluto l'indirizzo di `og:image` (`https://dominio/img/og-vetrina.jpg`) e aggiungere `og:url`;
 - togliere l'avviso «Demo di proposta» e risolvere tutti i [DA CONFERMARE] qui sotto.
 
 ## Elenco dei [DA CONFERMARE]

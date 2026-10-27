@@ -44,6 +44,21 @@ try {
     const file = path.join(uscita, `quartin-${larghezza}${suffisso}.png`);
     await pagina.screenshot({ path: file, fullPage: true });
     console.log('salvato', path.relative(radice, file));
+    if (larghezza < 600) {
+      // a metà menu: testata e indice delle categorie devono restare in vista
+      // scorrimento istantaneo: con quello fluido lo screenshot coglierebbe la pagina a metà strada
+      await pagina.evaluate(() => document.getElementById('menu-salato').scrollIntoView({ behavior: 'instant' }));
+      await pagina.waitForTimeout(600);
+      const pos = await pagina.evaluate(() => ({
+        testata: Math.round(document.querySelector('.testata').getBoundingClientRect().top),
+        indice: Math.round(document.querySelector('.menu-indice').getBoundingClientRect().top),
+        attivo: document.querySelector('.menu-indice [aria-current]')?.textContent,
+      }));
+      console.log(`a metà menu: testata a ${pos.testata}px, indice a ${pos.indice}px, categoria attiva «${pos.attivo}»`);
+      const fileMenu = path.join(uscita, `quartin-${larghezza}-menu${suffisso}.png`);
+      await pagina.screenshot({ path: fileMenu });
+      console.log('salvato', path.relative(radice, fileMenu));
+    }
     await pagina.close();
   }
 } finally {

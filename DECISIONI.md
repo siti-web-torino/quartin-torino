@@ -94,3 +94,46 @@ chiesto a te, con il motivo. Le più importanti sono anche nel RAPPORTO.md.
       la larghezza sotto indirizzo e contatti (1 giro).
 25. **Nome in testata e nel piede come testo semplice** (non più maiuscolo, rosso e
     condensato): accanto all'ippopotamo sembrava un logo rifatto con un altro font.
+
+## Revisione del 28/10/2026 — le tue 12 modifiche
+
+Fatte tutte. Dove ho dovuto scegliere un dettaglio, ecco come e perché.
+
+26. **Foto a 1100–1400 px non create.** Le originali sono larghe 645–700 px, il tavolino
+    ritagliato 383 px: versioni più grandi sarebbero solo ingrandite, più pesanti e senza
+    un dettaglio in più. Ho rifatto tutte le WebP a **q70** alla misura vera (22–54 KB) più
+    una variante da 480 px per gli `srcset` (il tavolino ha solo la sua, 383 px). Tutte le
+    `<img>` hanno `srcset` e `sizes`. Per foto più grandi servono gli originali dal locale.
+    Se vuoi comunque le versioni ingrandite, basta aggiungere 1200 a `VARIANTI` in
+    `strumenti/ottimizza-foto.mjs` e togliere il filtro sulla larghezza.
+27. **og:image 1200×630** (`img/og-vetrina.jpg`): la foto della vetrina è 686×708, quindi
+    non l'ho ingrandita ma messa su un fondo rosso accanto al nome, composta in
+    `strumenti/og.html` e fotografata con Edge (`strumenti/og-immagine.mjs`). L'URL è
+    relativo: va reso assoluto quando ci sarà il dominio (commento nell'HTML).
+28. **JSON-LD `BarOrPub`** con il CAP 10124 che mi hai dato. Senza telefono e orari, che
+    non sono confermati. Il CAP per ora sta solo lì: l'indirizzo visibile e il link a
+    Maps sono rimasti senza.
+29. **Titolo d'apertura**: «Chiacchiere da bar in Vanchiglia», la frase del tuo esempio
+    (non ne ho inventata un'altra), sopra c'è solo «Quartin». 64 px su desktop, 40 px a
+    390 px, su tre righe. Nuovo passo `--fs-hero` nella scala.
+30. **Telefono cliccabile** (`tel:+393666912120`, 44 px) come chiedi: sostituisce la
+    decisione 18. Il riquadro [DA CONFERMARE] resta accanto finché in `js/main.js` non
+    metti `confermato: true`.
+31. **Frasi dello zio Tony**: solo quelle in «Il Quartin» sono passate al corsivo Source
+    Serif su fondo `#f3ebe4`; quella sul parcheggio in «Vieni a trovarci» è rimasta come
+    prima, perché la richiesta riguardava #il-quartin. Nuovo passo `--fs-detto` (22→29 px).
+    L'ippopotamo è largo 48 px: il ritaglio è 67×48, quindi su schermi retina è un po' morbido.
+32. **Riga sotto gli slogan**: «Quartin – Chiacchiere da bar», cioè la firma che c'è sotto la
+    frase sulle cartoline originali (`slogan*.png`). Niente testo nuovo. Nuovo passo
+    `--sp-fascia` (48→80 px). Su mobile le virgolette stanno su una riga loro sopra e sotto
+    la frase, così non la toccano; da 768 px stanno agli angoli del riquadro di 1100 px.
+33. **Verde marmo**: scelto lo stato dei pulsanti del menu (passaggio del mouse e **parte
+    del menu che stai leggendo**, calcolata mentre scorri) invece del filetto: con l'indice
+    sticky su mobile serve anche a capire dove sei. Il pulsante attivo scorre in vista.
+34. **Foto inclinate con ombra**: vetrina (apertura), quartino (menu), ippopotamo (galleria).
+    Le altre sono dritte e senza ombra, con la cornice bianca.
+35. **Testata sticky**: 56 px sotto i 768 px, 62 px sopra; `scroll-padding-top` su `html`
+    perché ancore e focus non finiscano sotto. L'avviso «Demo» in cima scorre via.
+36. **Galleria**: tre foto in fila con colonne proporzionali alla forma di ciascuna, così
+    hanno la stessa altezza; la nota [DA CONFERMARE] è sotto il titolo (sostituisce la 15
+    per la parte del riquadro vuoto).

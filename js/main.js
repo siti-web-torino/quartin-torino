@@ -13,7 +13,7 @@ const QUARTIN = {
   // Dal brief: una sola fonte giornalistica.
   apertura: { testo: 'Aperto dal 10 settembre 2026', confermato: false, nota: 'una sola fonte giornalistica' },
 
-  // Letto in fondo a menu.png. Finché non è confermato non diventa un link da chiamare.
+  // Letto in fondo a menu.png. È un link da chiamare; finché non è confermato ha il riquadro.
   telefono: { numero: '366 691 2120', confermato: false, nota: 'letto dal menu' },
 
   // Esempio: [{ giorni: 'Lunedì', ore: 'chiuso' }, { giorni: 'Martedì–Domenica', ore: '7:30–24:00' }]
@@ -153,13 +153,10 @@ function riempiContatti() {
   const tel = document.querySelector('[data-q-telefono]');
   if (tel && QUARTIN.telefono && QUARTIN.telefono.numero) {
     const { numero, confermato, nota } = QUARTIN.telefono;
-    if (confermato) {
-      const link = crea('a', '', numero);
-      link.href = `tel:+39${numero.replace(/\D/g, '')}`;
-      tel.replaceChildren(link);
-    } else {
-      tel.replaceChildren(crea('span', '', numero), document.createElement('br'), daConfermare(nota));
-    }
+    const link = crea('a', '', numero);
+    link.href = `tel:+39${numero.replace(/\D/g, '')}`;
+    tel.replaceChildren(link);
+    if (!confermato) tel.append(document.createElement('br'), daConfermare(nota));
   }
 
   const social = document.querySelector('[data-q-social]');
@@ -248,6 +245,32 @@ function riempiMenu() {
   contenitore.replaceChildren(frammento);
 }
 
+// Nell'indice del menu evidenzia la parte che si sta leggendo e, sul telefono, la porta
+// in vista nella riga che scorre di lato.
+function indiceAttivo() {
+  const indice = document.querySelector('[data-q-indice]');
+  const gruppi = document.querySelectorAll('.menu-gruppo');
+  if (!indice || !gruppi.length || !('IntersectionObserver' in window)) return;
+  const lento = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let attivo = null;
+  const attiva = (id) => {
+    const link = indice.querySelector(`a[href="#${id}"]`);
+    if (!link || link === attivo) return;
+    if (attivo) attivo.removeAttribute('aria-current');
+    link.setAttribute('aria-current', 'true');
+    attivo = link;
+    if (indice.scrollWidth > indice.clientWidth) {
+      const x = link.parentElement.offsetLeft - parseFloat(getComputedStyle(indice).paddingLeft);
+      indice.scrollTo({ left: x, behavior: lento.matches ? 'auto' : 'smooth' });
+    }
+  };
+  // conta come «in lettura» il gruppo che attraversa una fascia stretta a un terzo dello schermo
+  const osservatore = new IntersectionObserver((voci) => {
+    for (const v of voci) if (v.isIntersecting) attiva(v.target.id);
+  }, { rootMargin: '-30% 0px -65% 0px' });
+  gruppi.forEach((g) => osservatore.observe(g));
+}
+
 function navigazione() {
   const bottone = document.querySelector('.nav-bottone');
   const lista = document.getElementById('nav-lista');
@@ -265,4 +288,5 @@ function navigazione() {
 riempiTesti();
 riempiContatti();
 riempiMenu();
+indiceAttivo();
 navigazione();

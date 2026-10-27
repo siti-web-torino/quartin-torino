@@ -8,6 +8,31 @@
   <!-- Demo di proposta: non indicizzare finché il locale non approva. -->
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#AC252B">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:title" content="Quartin – Chiacchiere da bar in Vanchiglia">
+  <meta property="og:description" content="Bar di quartiere in via Santa Giulia 21/D a Torino: aperitivi, vini al calice e in quartino, cocktail, gelato.">
+  <!-- Da rendere assoluto (https://dominio/img/og-vetrina.jpg) quando ci sarà il dominio: i social non leggono i percorsi relativi. -->
+  <meta property="og:image" content="img/og-vetrina.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="La vetrofania del Quartin con l'ippopotamo rosso, accanto alla scritta «Chiacchiere da bar in Vanchiglia».">
+  <!-- Niente telefono né orari qui finché il locale non li conferma. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BarOrPub",
+    "name": "Quartin",
+    "description": "Bar di quartiere a Vanchiglia: aperitivi, vini al calice e in quartino, cocktail, gelato.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via Santa Giulia 21/D",
+      "postalCode": "10124",
+      "addressLocality": "Torino",
+      "addressCountry": "IT"
+    }
+  }
+  </script>
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="preload" href="fonts/archivo-variabile.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
@@ -25,7 +50,7 @@
   <header class="testata">
     <div class="contenitore testata-riga">
       <a class="marchio" href="#benvenuto">
-        <img src="img/ippopotamo-marchio.webp" width="67" height="48" alt="">
+        <img src="img/ippopotamo-marchio.webp" srcset="img/ippopotamo-marchio.webp 67w" sizes="3rem" width="67" height="48" alt="">
         <span>Quartin</span>
       </a>
       <nav class="nav" aria-label="Sezioni della pagina">
@@ -45,14 +70,16 @@
     <!-- Benvenuto -->
     <section class="benvenuto" id="benvenuto" aria-labelledby="titolo-benvenuto">
       <div class="contenitore benvenuto-griglia">
-        <figure class="benvenuto-foto stampa">
+        <figure class="benvenuto-foto stampa stampa-inclinata">
           <img src="img/vetrina-logo.webp" width="686" height="708" fetchpriority="high"
+               srcset="img/vetrina-logo-480.webp 480w, img/vetrina-logo.webp 686w"
+               sizes="(min-width: 64em) 30rem, calc(100vw - 1.5rem)"
                alt="La vetrofania del Quartin sul vetro del locale: un ippopotamo rosso, la scritta QUARTIN e sotto «Chiacchiere da bar».">
         </figure>
         <div class="benvenuto-testo">
           <h1 class="benvenuto-titolo" id="titolo-benvenuto">
-            <span class="benvenuto-nome">Quartin – Chiacchiere da bar</span>
-            Aperitivi, vini al calice e in quartino, cocktail, gelato.
+            <span class="benvenuto-nome">Quartin</span>
+            Chiacchiere da bar in Vanchiglia
           </h1>
           <p class="benvenuto-dove">
             <span data-q="via">Via Santa Giulia 21/D</span>
@@ -92,17 +119,20 @@
       <div class="contenitore detti">
         <blockquote class="detto detto-a">
           <p>Lo zio Tony diceva, il gelato in coppetta d’acciaio non fa ingrassare perché il metallo trattiene le calorie.</p>
-          <img src="img/ippopotamo-marchio.webp" width="67" height="48" alt="" loading="lazy">
+          <img src="img/ippopotamo-marchio.webp" srcset="img/ippopotamo-marchio.webp 67w" sizes="3rem" width="67" height="48" alt="" loading="lazy">
         </blockquote>
         <blockquote class="detto detto-b">
           <p>Lo zio Tony diceva, la birretta da 20 cl è la scusa perfetta per ordinarne ancora una.</p>
-          <img src="img/ippopotamo-marchio.webp" width="67" height="48" alt="" loading="lazy">
+          <img src="img/ippopotamo-marchio.webp" srcset="img/ippopotamo-marchio.webp 67w" sizes="3rem" width="67" height="48" alt="" loading="lazy">
         </blockquote>
       </div>
     </section>
 
     <aside class="cartolina" aria-label="Slogan del Quartin">
-      <p class="cartolina-testo">Mezzo pieno</p>
+      <div class="cartolina-dentro">
+        <p class="cartolina-testo">Mezzo pieno</p>
+        <p class="cartolina-firma">Quartin – Chiacchiere da bar</p>
+      </div>
     </aside>
 
     <!-- Da bere e da assaggiare -->
@@ -127,8 +157,10 @@
 
       <!-- Foto inserite dal JS accanto alle voci giuste (vedi QUARTIN.fotoMenu in js/main.js) -->
       <template id="foto-menu-quartini">
-        <figure class="stampa foto-menu">
+        <figure class="stampa stampa-inclinata foto-menu">
           <img src="img/quartino-aperitivo.webp" width="694" height="830" loading="lazy"
+               srcset="img/quartino-aperitivo-480.webp 480w, img/quartino-aperitivo.webp 694w"
+               sizes="(max-width: 24rem) calc(100vw - 2.5rem), 22rem"
                alt="Su un tavolino d’acciaio: una caraffa di vino rosso nel ghiaccio, un bicchiere di rosso, un posacenere, una cartolina d’epoca e ciotoline con patatine, taralli e peperoncini ripieni.">
           <figcaption>Una caraffa di rosso nel ghiaccio, con patatine, taralli e peperoncini ripieni.</figcaption>
         </figure>
@@ -136,6 +168,8 @@
       <template id="foto-menu-dolci">
         <figure class="stampa foto-menu">
           <img src="img/gelato-biscotto.webp" width="678" height="822" loading="lazy"
+               srcset="img/gelato-biscotto-480.webp 480w, img/gelato-biscotto.webp 678w"
+               sizes="(max-width: 24rem) calc(100vw - 2.5rem), 22rem"
                alt="Visti dall’alto, due gelati tra due cialde di biscotto in coppette d’acciaio, con una ciotolina di cioccolato, su un vassoio appoggiato a una cassa rossa.">
           <figcaption>Gelato tra due cialde di biscotto, in coppetta d’acciaio.</figcaption>
         </figure>
@@ -143,7 +177,10 @@
     </section>
 
     <aside class="cartolina cartolina-b" aria-label="Slogan del Quartin">
-      <p class="cartolina-testo">Il solito</p>
+      <div class="cartolina-dentro">
+        <p class="cartolina-testo">Il solito</p>
+        <p class="cartolina-firma">Quartin – Chiacchiere da bar</p>
+      </div>
     </aside>
 
     <!-- Il locale -->
@@ -151,25 +188,30 @@
       <div class="contenitore">
         <h2 class="titolo-sezione" id="titolo-locale">Il locale</h2>
         <p class="attacco">Acciaio, marmo verde, legno e un ippopotamo appeso al soffitto.</p>
+        <p class="dc dc-blocco locale-manca">[DA CONFERMARE] Mancano foto di: facciata con il civico, sala intera, bancone, un cocktail, il gelato soft.</p>
         <div class="galleria">
-          <figure class="stampa galleria-a">
+          <figure class="stampa stampa-inclinata galleria-a">
             <img src="img/ippopotamo-stai-soft.webp" width="645" height="737" loading="lazy"
+                 srcset="img/ippopotamo-stai-soft-480.webp 480w, img/ippopotamo-stai-soft.webp 645w"
+                 sizes="(min-width: 64em) 22rem, (min-width: 48em) 30vw, calc(100vw - 2.5rem)"
                  alt="Un grande ippopotamo rosso lucido appeso al soffitto con cinghie nere, con scritto sul fianco «STAI SOFT»; dietro, una parete crema, un’insegna luminosa e una lampadina accesa.">
             <figcaption>L’ippopotamo rosso appeso al soffitto: «Stai soft».</figcaption>
           </figure>
           <figure class="stampa galleria-b">
             <img src="img/arredo-sgabello.webp" width="685" height="624" loading="lazy"
+                 srcset="img/arredo-sgabello-480.webp 480w, img/arredo-sgabello.webp 685w"
+                 sizes="(min-width: 64em) 28rem, (min-width: 48em) 38vw, calc(100vw - 2.5rem)"
                  alt="Un panino tostato su uno sgabello cromato, davanti a pannelli di alluminio, legno chiaro con paglia di Vienna e una fascia di marmo verde con mensole.">
             <figcaption>Alluminio, legno, paglia di Vienna e marmo verde.</figcaption>
           </figure>
           <figure class="stampa galleria-c">
+            <!-- Ritaglio di 4.png senza la persona: esiste solo a 383 px, una sola misura. -->
             <img src="img/cabaret-tavolino.webp" width="383" height="560" loading="lazy"
+                 srcset="img/cabaret-tavolino.webp 383w"
+                 sizes="(min-width: 64em) 17rem, (min-width: 48em) 24vw, calc(100vw - 2.5rem)"
                  alt="Coppette d’acciaio sul tavolino: burrata con olio, pomodorini e olive, cetriolini, verdure, patatine e focaccia.">
             <figcaption>Coppette d’acciaio sul tavolino, all’aperitivo.</figcaption>
           </figure>
-          <div class="galleria-manca">
-            <p class="dc dc-blocco">[DA CONFERMARE] Mancano foto di: facciata con il civico, sala intera, bancone, un cocktail, il gelato soft.</p>
-          </div>
         </div>
       </div>
     </section>
@@ -197,7 +239,10 @@
           </div>
           <div class="contatti-voce">
             <dt>Telefono</dt>
-            <dd data-q-telefono><span class="dc">[DA CONFERMARE] numero</span></dd>
+            <dd data-q-telefono>
+              <a href="tel:+393666912120">366 691 2120</a><br>
+              <span class="dc">[DA CONFERMARE] letto dal menu</span>
+            </dd>
           </div>
           <div class="contatti-voce">
             <dt>Instagram e altri contatti</dt>
@@ -215,7 +260,7 @@
   <footer class="piede">
     <div class="contenitore piede-riga">
       <p class="piede-nome">
-        <img src="img/ippopotamo-marchio.webp" width="67" height="48" alt="" loading="lazy">
+        <img src="img/ippopotamo-marchio.webp" srcset="img/ippopotamo-marchio.webp 67w" sizes="3rem" width="67" height="48" alt="" loading="lazy">
         <span>Quartin – Chiacchiere da bar</span>
       </p>
       <p><span data-q="via">Via Santa Giulia 21/D</span>, <span data-q="zona">Vanchiglia, Torino</span></p>

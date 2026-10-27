@@ -42,3 +42,16 @@
   mostrate più grandi di così.
 - Se il sito regge su Safari/iPhone e Firefox: ho provato solo con Edge (Chromium).
 - Cosa sia «Pippo» nel menu (forse l'ippopotamo): non l'ho scritto da nessuna parte.
+
+## Revisione del 28/10/2026
+
+Fatte le 12 modifiche richieste (dettagli e scelte in DECISIONI.md, punti 26–36): testata
+sticky, telefono cliccabile, nuovo titolo d'apertura, frasi dello zio Tony in corsivo,
+fasce più basse con la firma delle cartoline, indice del menu sticky su mobile con la parte
+attiva in verde, galleria a tre foto, foto inclinate solo una per sezione, hero a 1200 px,
+Open Graph e JSON-LD. Controlli e screenshot rifatti senza problemi (in più
+`docs/anteprime/quartin-390-menu.png`: testata e indice restano in vista a metà menu).
+
+**Non fatto come chiesto:** le foto a 1100–1400 px. Le originali sono larghe 645–700 px
+(il tavolino 383): le ho rifatte a q70 alla misura vera con una variante da 480 px per gli
+`srcset`, senza ingrandirle. Per avere foto più grandi servono gli originali dal locale.

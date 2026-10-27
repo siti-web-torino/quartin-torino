@@ -21,6 +21,10 @@ const sharp = createRequire(base)('sharp');
 const ORIGINALI = path.join(radice, 'img-originali');
 const USCITA = path.join(radice, 'img');
 const LATO_MAX = 1600;
+const QUALITA = 70;
+// Larghezze in più per srcset. Mai più grandi dell'originale: ingrandire non aggiunge
+// dettaglio, pesa di più e basta (le immagini di partenza sono larghe 383–700 px).
+const VARIANTI = [480];
 
 // ritaglio: { left, top, width, height } in pixel dell'originale.
 // Dove c'è, toglie l'icona «persone taggate» di Instagram in basso a sinistra.
@@ -40,11 +44,18 @@ for (const { da, a, ritaglio } of foto) {
   let img = sharp(path.join(ORIGINALI, da)).flatten({ background: '#ffffff' });
   if (ritaglio) img = img.extract(ritaglio);
   // sharp non copia EXIF/ICC/XMP se non glielo si chiede: l'uscita è senza metadati.
-  const info = await img
+  const info = await img.clone()
     .resize({ width: LATO_MAX, height: LATO_MAX, fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: 82, effort: 6 })
+    .webp({ quality: QUALITA, effort: 6 })
     .toFile(path.join(USCITA, a));
   console.log(`${a}  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)} KB`);
+  // variante solo se è almeno il 15% più stretta dell'originale, altrimenti non serve
+  for (const larghezza of VARIANTI.filter((l) => l < info.width * 0.85)) {
+    const nome = a.replace(/\.webp$/, `-${larghezza}.webp`);
+    const v = await img.clone().resize({ width: larghezza }).webp({ quality: QUALITA, effort: 6 })
+      .toFile(path.join(USCITA, nome));
+    console.log(`${nome}  ${v.width}×${v.height}  ${(v.size / 1024).toFixed(0)} KB`);
+  }
 }
 
 // Ippopotamo piccolo del logo, ritagliato com'è da ziotony.png (riquadro trovato cercando i
