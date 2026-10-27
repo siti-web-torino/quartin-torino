@@ -21,3 +21,14 @@ chiesto a te, con il motivo. Le più importanti sono anche nel RAPPORTO.md.
    sito con il riquadro [DA CONFERMARE]: le cifre sono piccole e potrei averne sbagliata una.
 5. I **colori** li ho campionati con uno script (mediana dei pixel di un'area) e non a occhio:
    così gli hex in STUDIO.md sono ripetibili.
+
+## Fase 2 — Direzione
+
+6. **Scelta la direzione B, «Cartolina rossa»** (dettagli in DIREZIONI.md): è il linguaggio
+   che il locale usa già su cartoline, frasi dello zio Tony e menu. Le altre due erano
+   interpretazioni mie (A troppo fredda e senza rosso, C notturna e fuori marchio).
+7. **Rosso di riferimento `#AC252B`** (da `slogan2.png`): i rossi campionati variano da
+   `#AC020B` a `#AF3736` perché sono screenshot con filtri diversi; questo sta nel mezzo e
+   con il bianco ha contrasto 6,9:1 (AA anche per testo piccolo).
+8. **Verde marmo solo per «Vieni a trovarci»** e **giallo solo per i [DA CONFERMARE]**:
+   due colori di servizio presi dalle foto, per non diluire il rosso.
