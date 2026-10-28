@@ -13,13 +13,14 @@
   orizzontale, reduced-motion, nessun errore in console).
 - 5 commit locali, uno per fase. Niente push, niente pubblicazione, niente installato.
 - Documenti: `STUDIO.md` (foto, palette, menu trascritto), `DIREZIONI.md` (3 direzioni e
-  scelta), `DECISIONI.md` (25 scelte prese da solo), `README.md` (come cambiare i
+  scelta), `DECISIONI.md` (49 scelte, comprese le revisioni del 28/10), `README.md` (come cambiare i
   contenuti ed elenco dei 24 [DA CONFERMARE]).
 
 ## Cosa controllare per primo
 
-1. **Il telefono `366 691 2120`**: letto in piccolo dal piede del menu. Finché non metti
-   `confermato: true` in `js/main.js` non è cliccabile.
+1. **Il telefono `366 691 2120`**: letto in piccolo dal piede del menu. Dal 28/10 è
+   cliccabile (come hai chiesto): se una cifra è sbagliata il link chiama uno sconosciuto.
+   Il riquadro giallo sparisce con `confermato: true` in `js/main.js`.
 2. **Il menu**: confrontalo con `img-originali/menu.png`, soprattutto i prezzi e le 16 righe
    con il riquadro (in particolare «Vini al Calice 5.9» e «Babà…»).
 3. **Il ritaglio di `4.png`** (`img/cabaret-tavolino.webp`): ho tolto la donna seduta perché
