@@ -36,11 +36,12 @@ Tutto sta nell'oggetto `QUARTIN` in cima a [js/main.js](js/main.js). La regola �
 Esempi:
 
 ```js
-// Orari (al posto di null)
-orari: [
-  { giorni: 'Lunedì', ore: 'chiuso' },
-  { giorni: 'Martedì–Domenica', ore: '…' },
-],
+// Orari (al posto di null): un valore per ognuno dei sette giorni.
+// Da qui escono la tabella in «Vieni a trovarci» e la riga «Oggi …» in apertura.
+orari: {
+  lunedi: 'chiuso', martedi: '…', mercoledi: '…', giovedi: '…',
+  venerdi: '…', sabato: '…', domenica: '…',
+},
 
 // Telefono confermato: resta il link da toccare per chiamare, sparisce il riquadro giallo
 telefono: { numero: '366 691 2120', confermato: true },
@@ -49,15 +50,20 @@ telefono: { numero: '366 691 2120', confermato: true },
 social: { instagram: 'https://www.instagram.com/…', email: '…' },
 
 // Data di apertura confermata
-apertura: { testo: 'Aperto dal 10 settembre 2026', confermato: true },
+apertura: { testo: 'Nuovo in Vanchiglia dal 10 settembre 2026.', confermato: true },
 ```
 
 **Menu**: `QUARTIN.menu` è un elenco di gruppi (`titolo`, `voci`). Ogni voce ha `nome`,
 e se servono `dettaglio`, `misura`, `prezzo`, `opzioni`, `incerto`. Il prezzo come numero
 (`3.5`) viene scritto all'italiana («3,50»); come testo (`'5,9?'`) viene mostrato così com'è.
 L'ordine dei gruppi nell'elenco è l'ordine nella pagina e nei pulsanti di salto.
-Le due foto del menu si agganciano ai gruppi con `foto: 'foto-menu-quartini'` /
-`'foto-menu-dolci'` (i modelli `<template>` sono in `index.html`).
+La foto del gelato si aggancia al gruppo con `foto: 'foto-menu-dolci'` (il modello
+`<template>` è in `index.html`); la foto del quartino ora è in apertura.
+
+**Fasce rosse** («Il solito? Un quartino di rosso.», «Mezzo pieno? Una birretta alla
+spina.»): il testo è in `index.html`, il prezzo lo prende il JS dal menu con
+`data-q-prezzo="quartini"` (prezzo del gruppo) o `data-q-prezzo="birre/Birretta alla Spina"`
+(prezzo di una voce). Se cambi il prezzo nel menu, cambia anche nella fascia.
 
 **Indirizzo e link alla mappa** stanno in `QUARTIN` (`via`, `zona`, `mappa`) e anche
 nell'HTML, così funzionano pure senza JavaScript: se cambiano, aggiornali in tutti e due.
@@ -67,9 +73,10 @@ telefono saranno confermati si possono aggiungere lì (`openingHours`, `telephon
 **Anteprima per i social** (`og:*` in `<head>`): l'immagine `img/og-vetrina.jpg` (1200×630)
 si rigenera con `node strumenti/og-immagine.mjs` dopo aver cambiato `strumenti/og.html`.
 
-**Testi fissi** (titoli, frase d'apertura, frasi dello zio Tony, slogan, didascalie):
-direttamente in `index.html`. Gli slogan e le frasi dello zio Tony sono copiati alla lettera
-dalle immagini del locale: non vanno riscritti.
+**Testi fissi** (titoli, frasi d'apertura, frasi dello zio Tony, fasce, didascalie):
+direttamente in `index.html`. Le frasi dello zio Tony sono copiate alla lettera dalle
+immagini del locale; titolo d'apertura, riga dei prodotti, frase di «Il Quartin», fasce e
+nota sugli allergeni sono testi chiesti da Alessandro il 28/10 (DECISIONI.md, 41–48).
 
 **Avviso «Demo di proposta»** in cima alla pagina: è il `<p class="avviso-demo">` subito
 dopo `<body>`. Toglilo quando il locale approva.
@@ -117,8 +124,8 @@ Nella pagina sono tutti riquadri gialli tratteggiati.
 
 | # | Dove | Cosa | Perché |
 |---|---|---|---|
-| 1 | Il Quartin | Data di apertura «10 settembre 2026» | Una sola fonte giornalistica |
-| 2 | Vieni a trovarci | **Orari** e giorno di chiusura | Nessuna fonte |
+| 1 | Il Quartin | «Nuovo in Vanchiglia dal 10 settembre 2026.» | Una sola fonte giornalistica |
+| 2 | Vieni a trovarci, e «Oggi …» in apertura | **Orari** e giorno di chiusura | Nessuna fonte |
 | 3 | Vieni a trovarci | **Telefono** `366 691 2120` | Letto in piccolo in fondo a `menu.png` |
 | 4 | Vieni a trovarci | Instagram, email | Nessun profilo visibile nelle immagini |
 | 5 | Da bere | **Tutto il menu**, voci e prezzi | Trascritto da una foto a 489 px |
@@ -140,6 +147,7 @@ Nella pagina sono tutti riquadri gialli tratteggiati.
 | 21 | Menu, Le coppe | Nomi dei variegati, soprattutto «Babà con Granella di Biscotti e/o Meliga» | Prima parola incerta |
 | 22 | Il locale | Foto mancanti: facciata con il civico, sala, bancone, un cocktail, il gelato soft | Non ci sono tra le immagini |
 | 23 | Tutta la pagina | Avviso «Demo di proposta» | Da togliere dopo l'approvazione |
+| 24 | Fasce rosse | Prezzi 7,50 (quartino) e 2,50 (birretta) | Presi dal menu, quindi da confermare come il menu |
 
 Fuori dalla pagina, da chiedere comunque: logo in vettoriale (SVG/PDF), permesso di usare
 le foto (sono screenshot, probabilmente dal loro Instagram) e conferma che la donna

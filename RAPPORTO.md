@@ -14,7 +14,7 @@
 - 5 commit locali, uno per fase. Niente push, niente pubblicazione, niente installato.
 - Documenti: `STUDIO.md` (foto, palette, menu trascritto), `DIREZIONI.md` (3 direzioni e
   scelta), `DECISIONI.md` (25 scelte prese da solo), `README.md` (come cambiare i
-  contenuti ed elenco dei 23 [DA CONFERMARE]).
+  contenuti ed elenco dei 24 [DA CONFERMARE]).
 
 ## Cosa controllare per primo
 

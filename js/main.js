@@ -11,24 +11,27 @@ const QUARTIN = {
   mappa: 'https://www.google.com/maps/search/?api=1&query=Quartin%2C%20Via%20Santa%20Giulia%2021%2FD%2C%20Torino',
 
   // Dal brief: una sola fonte giornalistica.
-  apertura: { testo: 'Aperto dal 10 settembre 2026', confermato: false, nota: 'una sola fonte giornalistica' },
+  apertura: { testo: 'Nuovo in Vanchiglia dal 10 settembre 2026.', confermato: false, nota: 'una sola fonte giornalistica' },
 
   // Letto in fondo a menu.png. È un link da chiamare; finché non è confermato ha il riquadro.
   telefono: { numero: '366 691 2120', confermato: false, nota: 'letto dal menu' },
 
-  // Esempio: [{ giorni: 'Lunedì', ore: 'chiuso' }, { giorni: 'Martedì–Domenica', ore: '7:30–24:00' }]
+  // Un valore per giorno (testo libero). Servono tutti e sette: da qui escono la tabella in
+  // «Vieni a trovarci» e la riga «Oggi» in apertura. Esempio:
+  // { lunedi: 'chiuso', martedi: '7:30–24:00', mercoledi: '7:30–24:00', giovedi: '7:30–24:00',
+  //   venerdi: '7:30–1:00', sabato: '9:00–1:00', domenica: '9:00–22:00' }
   orari: null,
 
   // Esempio: { instagram: 'https://www.instagram.com/…', email: 'ciao@…' }
   social: null,
 
-  notaMenu: '*chi ha la salute è ricco e non lo sa: per gli allergeni chiedi al bancone!',
+  notaMenu: '* Contiene allergeni: chiedi al bancone, ti diciamo tutto.',
 
   // Menu trascritto da menu.png (STUDIO.md, sezione 6). Prezzi in euro.
   // `prezzo` numero → scritto all'italiana (3.5 → 3,50); stringa → mostrata così com'è.
   menu: [
     {
-      id: 'quartini', titolo: 'Quartini', prezzo: 7.5, foto: 'foto-menu-quartini',
+      id: 'quartini', titolo: 'Quartini', prezzo: 7.5,
       voci: [{ nome: 'Vino Bianco' }, { nome: 'Vino Rosso' }, { nome: 'Spritz' }, { nome: 'Vermouth' }],
       frase: 'Quello di cui (non) avevamo bisogno. Davvero.',
     },
@@ -142,13 +145,24 @@ function riempiTesti() {
   }
 }
 
+// Indice = Date.getDay() (0 è domenica); la tabella parte da lunedì.
+const GIORNI = [['domenica', 'Domenica'], ['lunedi', 'Lunedì'], ['martedi', 'Martedì'], ['mercoledi', 'Mercoledì'],
+  ['giovedi', 'Giovedì'], ['venerdi', 'Venerdì'], ['sabato', 'Sabato']];
+
 function riempiContatti() {
   const orari = document.querySelector('[data-q-orari]');
-  if (orari && Array.isArray(QUARTIN.orari) && QUARTIN.orari.length) {
+  if (orari && QUARTIN.orari) {
     const tabella = crea('dl', 'orari-tabella');
-    for (const { giorni, ore } of QUARTIN.orari) tabella.append(crea('dt', '', giorni), crea('dd', '', ore));
+    for (const [chiave, nome] of [...GIORNI.slice(1), GIORNI[0]]) {
+      tabella.append(crea('dt', '', nome), crea('dd', '', QUARTIN.orari[chiave] || '–'));
+    }
     orari.replaceChildren(tabella);
   }
+
+  // «Oggi …» in apertura: resta il riquadro [DA CONFERMARE] finché mancano gli orari
+  const oggi = document.querySelector('[data-q-oggi]');
+  const oreOggi = QUARTIN.orari && QUARTIN.orari[GIORNI[new Date().getDay()][0]];
+  if (oggi && oreOggi) oggi.replaceChildren(crea('span', 'benvenuto-oggi-etichetta', 'Oggi'), crea('span', '', oreOggi));
 
   const tel = document.querySelector('[data-q-telefono]');
   if (tel && QUARTIN.telefono && QUARTIN.telefono.numero) {
@@ -174,6 +188,17 @@ function riempiContatti() {
       voci.push(a);
     }
     if (voci.length) social.replaceChildren(...voci.flatMap((v, i) => (i ? [document.createElement('br'), v] : [v])));
+  }
+}
+
+// Prezzi delle fasce rosse presi dal menu, così cambiano insieme:
+// data-q-prezzo="quartini" (prezzo del gruppo) o "birre/Birretta alla Spina" (prezzo di una voce)
+function riempiPrezziFasce() {
+  for (const el of document.querySelectorAll('[data-q-prezzo]')) {
+    const [idGruppo, nomeVoce] = el.dataset.qPrezzo.split('/');
+    const gruppo = QUARTIN.menu.find((g) => g.id === idGruppo);
+    const voce = nomeVoce ? gruppo && gruppo.voci.find((v) => v.nome === nomeVoce) : gruppo;
+    if (voce && voce.prezzo != null) el.replaceChildren(crea('span', 'vh', 'euro '), formatoPrezzo(voce.prezzo));
   }
 }
 
@@ -287,6 +312,7 @@ function navigazione() {
 
 riempiTesti();
 riempiContatti();
+riempiPrezziFasce();
 riempiMenu();
 indiceAttivo();
 navigazione();

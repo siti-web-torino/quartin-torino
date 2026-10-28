@@ -71,19 +71,24 @@
     <section class="benvenuto" id="benvenuto" aria-labelledby="titolo-benvenuto">
       <div class="contenitore benvenuto-griglia">
         <figure class="benvenuto-foto stampa stampa-inclinata">
-          <img src="img/vetrina-logo.webp" width="686" height="708" fetchpriority="high"
-               srcset="img/vetrina-logo-480.webp 480w, img/vetrina-logo.webp 686w"
-               sizes="(min-width: 64em) 30rem, calc(100vw - 1.5rem)"
-               alt="La vetrofania del Quartin sul vetro del locale: un ippopotamo rosso, la scritta QUARTIN e sotto «Chiacchiere da bar».">
+          <img src="img/quartino-aperitivo.webp" width="694" height="830" fetchpriority="high"
+               srcset="img/quartino-aperitivo-480.webp 480w, img/quartino-aperitivo.webp 694w"
+               sizes="(min-width: 64em) 30rem, (min-width: 37.5em) 46vw, calc(100vw - 1.5rem)"
+               alt="Su un tavolino d’acciaio: una caraffa di vino rosso nel ghiaccio, un bicchiere di rosso, un posacenere, una cartolina d’epoca e ciotoline con patatine, taralli e peperoncini ripieni.">
         </figure>
         <div class="benvenuto-testo">
           <h1 class="benvenuto-titolo" id="titolo-benvenuto">
             <span class="benvenuto-nome">Quartin</span>
-            Chiacchiere da bar in Vanchiglia
+            Chiacchiere da bar<br>in Vanchiglia
           </h1>
+          <p class="benvenuto-sotto">Quartini di vino, aperitivo, cocktail e gelato soft.</p>
           <p class="benvenuto-dove">
             <span data-q="via">Via Santa Giulia 21/D</span>
             <span class="benvenuto-zona" data-q="zona">Vanchiglia, Torino</span>
+          </p>
+          <p class="benvenuto-oggi" data-q-oggi>
+            <span class="benvenuto-oggi-etichetta">Oggi</span>
+            <span class="dc">[DA CONFERMARE] orari</span>
           </p>
           <div class="azioni">
             <a class="bottone bottone-pieno" data-q-mappa href="https://www.google.com/maps/search/?api=1&amp;query=Quartin%2C%20Via%20Santa%20Giulia%2021%2FD%2C%20Torino" target="_blank" rel="noopener">
@@ -102,17 +107,17 @@
       <div class="contenitore quartin-griglia">
         <div class="quartin-intro">
           <h2 class="titolo-sezione" id="titolo-quartin">Il Quartin</h2>
-          <p class="attacco">Un bar di quartiere a Vanchiglia, dedicato all’incontro e alla convivialità.</p>
+          <p class="attacco">Bar di quartiere in via Santa Giulia: quartino, chiacchiere e gelato in coppetta d’acciaio.</p>
           <p class="quartin-apertura" data-q-apertura>
-            <span data-q="aperturaTesto">Aperto dal 10 settembre 2026</span>
+            <span>Nuovo in Vanchiglia dal 10 settembre 2026.</span>
             <span class="dc">[DA CONFERMARE] una sola fonte giornalistica</span>
           </p>
         </div>
-        <ul class="offerta" aria-label="Cosa si trova al Quartin">
-          <li>Aperitivi</li>
-          <li>Vini al calice e in quartino</li>
-          <li>Cocktail</li>
-          <li>Gelato</li>
+        <ul class="offerta" aria-label="Cosa si trova al Quartin: vai alla parte del menu">
+          <li><a href="#menu-salato">Aperitivi <span class="offerta-freccia" aria-hidden="true">→</span></a></li>
+          <li><a href="#menu-quartini">Vini al calice e in quartino <span class="offerta-freccia" aria-hidden="true">→</span></a></li>
+          <li><a href="#menu-imperdibili">Cocktail <span class="offerta-freccia" aria-hidden="true">→</span></a></li>
+          <li><a href="#menu-soft">Gelato <span class="offerta-freccia" aria-hidden="true">→</span></a></li>
         </ul>
       </div>
 
@@ -128,10 +133,15 @@
       </div>
     </section>
 
-    <aside class="cartolina" aria-label="Slogan del Quartin">
+    <!-- Prezzi delle fasce: li riprende il JS dal menu in js/main.js (data-q-prezzo) -->
+    <aside class="cartolina" aria-label="Un’ordinazione dal menu">
       <div class="cartolina-dentro">
-        <p class="cartolina-testo">Mezzo pieno</p>
-        <p class="cartolina-firma">Quartin – Chiacchiere da bar</p>
+        <p class="cartolina-testo">
+          <span class="cartolina-domanda">Il solito?</span>
+          <span class="cartolina-ordine">Un quartino di rosso.
+            <span class="prezzo prezzo-chiaro" data-q-prezzo="quartini"><span class="vh">euro </span>7,50</span></span>
+        </p>
+        <p class="cartolina-nota"><span class="dc">[DA CONFERMARE] prezzo dal menu</span></p>
       </div>
     </aside>
 
@@ -152,21 +162,12 @@
             <p class="menu-senza-js">Il menu si vede con JavaScript attivo. Per ora chiedi al bancone.</p>
           </noscript>
         </div>
-        <p class="menu-nota" data-q="notaMenu">*chi ha la salute è ricco e non lo sa: per gli allergeni chiedi al bancone!</p>
+        <p class="menu-nota" data-q="notaMenu">* Contiene allergeni: chiedi al bancone, ti diciamo tutto.</p>
       </div>
 
-      <!-- Foto inserite dal JS accanto alle voci giuste (vedi QUARTIN.fotoMenu in js/main.js) -->
-      <template id="foto-menu-quartini">
-        <figure class="stampa stampa-inclinata foto-menu">
-          <img src="img/quartino-aperitivo.webp" width="694" height="830" loading="lazy"
-               srcset="img/quartino-aperitivo-480.webp 480w, img/quartino-aperitivo.webp 694w"
-               sizes="(max-width: 24rem) calc(100vw - 2.5rem), 22rem"
-               alt="Su un tavolino d’acciaio: una caraffa di vino rosso nel ghiaccio, un bicchiere di rosso, un posacenere, una cartolina d’epoca e ciotoline con patatine, taralli e peperoncini ripieni.">
-          <figcaption>Una caraffa di rosso nel ghiaccio, con patatine, taralli e peperoncini ripieni.</figcaption>
-        </figure>
-      </template>
+      <!-- Foto inserita dal JS accanto al gruppo giusto (campo `foto` in QUARTIN.menu, js/main.js) -->
       <template id="foto-menu-dolci">
-        <figure class="stampa foto-menu">
+        <figure class="stampa stampa-inclinata foto-menu">
           <img src="img/gelato-biscotto.webp" width="678" height="822" loading="lazy"
                srcset="img/gelato-biscotto-480.webp 480w, img/gelato-biscotto.webp 678w"
                sizes="(max-width: 24rem) calc(100vw - 2.5rem), 22rem"
@@ -176,10 +177,14 @@
       </template>
     </section>
 
-    <aside class="cartolina cartolina-b" aria-label="Slogan del Quartin">
+    <aside class="cartolina cartolina-b" aria-label="Un’ordinazione dal menu">
       <div class="cartolina-dentro">
-        <p class="cartolina-testo">Il solito</p>
-        <p class="cartolina-firma">Quartin – Chiacchiere da bar</p>
+        <p class="cartolina-testo">
+          <span class="cartolina-domanda">Mezzo pieno?</span>
+          <span class="cartolina-ordine">Una birretta alla spina.
+            <span class="prezzo prezzo-chiaro" data-q-prezzo="birre/Birretta alla Spina"><span class="vh">euro </span>2,50</span></span>
+        </p>
+        <p class="cartolina-nota"><span class="dc">[DA CONFERMARE] prezzo dal menu</span></p>
       </div>
     </aside>
 
@@ -231,6 +236,14 @@
             <span class="vh">(apre Google Maps in una nuova scheda)</span>
           </a>
         </div>
+
+        <figure class="stampa stampa-inclinata vieni-vetrina">
+          <img src="img/vetrina-logo.webp" width="686" height="708" loading="lazy"
+               srcset="img/vetrina-logo-480.webp 480w, img/vetrina-logo.webp 686w"
+               sizes="(min-width: 64em) 26rem, calc(100vw - 2.5rem)"
+               alt="La vetrina del Quartin vista da fuori: sul vetro un ippopotamo rosso, la scritta QUARTIN e sotto «Chiacchiere da bar».">
+          <figcaption>Cerca questa vetrina</figcaption>
+        </figure>
 
         <dl class="contatti">
           <div class="contatti-voce">

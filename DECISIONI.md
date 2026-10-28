@@ -156,3 +156,44 @@ Fatte tutte. Dove ho dovuto scegliere un dettaglio, ecco come e perché.
 40. **Le coppette a destra su desktop sono morbide**: il ritaglio senza la persona è largo
     383 px e qui viene mostrato a circa 460 px in 4:3, quindi si vede metà dell'altezza
     originale, un po' ingrandita. Serve la foto originale per fare meglio.
+
+## Terza revisione (28/10/2026)
+
+41. **Apertura tra 600 e 1023 px su due colonne** (`1fr 1fr`, 32 px), la prima delle due
+    strade che proponevi: titolo e «Come arrivare» restano nella prima schermata senza
+    schiacciare la foto. Misurato: il pulsante finisce a 780 px su 390×844, 538 px su
+    600×900, 579 px su 768×1024, 630 px su 1023×768, 695 px su 1280×800. A 600 px il titolo
+    è limitato a 6,4vw, altrimenti «in» restava da solo su una riga (1 giro).
+42. **Foto d'apertura: il quartino**; sotto i 600 px in 16:10 (circa 356×228). Per non
+    mostrarla due volte l'ho **tolta dal menu** (accanto a «Quartini» non c'è più foto);
+    l'inclinazione nel menu ora tocca al gelato, una per sezione come prima.
+43. **La vetrina va in «Vieni a trovarci»** con «Cerca questa vetrina», inclinata e larga al
+    massimo 416 px. Su desktop sta sotto l'indirizzo, accanto alla frase dello zio Tony sul
+    parcheggio; su mobile subito dopo «Come arrivare». La og:image resta quella con la vetrina.
+44. **«Oggi …» in apertura**: con `orari: null` mostra il riquadro [DA CONFERMARE]. Ho
+    cambiato il formato degli orari in un valore per giorno (`lunedi` … `domenica`) perché
+    serve sapere cosa vale oggi; la stessa fonte riempie la tabella in «Vieni a trovarci».
+45. **Fasce rosse con ordinazioni dal menu, non più gli slogan originali**: questo supera la
+    regola del brief («slogan solo come scritti») perché me l'hai chiesto tu. Ho usato il tuo
+    esempio, «Il solito? Un quartino di rosso. 7,50», e per la seconda lo stesso schema con
+    l'altro slogan loro: «Mezzo pieno? Una birretta alla spina. 2,50» (Birretta alla Spina
+    20 cl, letta con certezza). Firma tolta. I prezzi vengono dal menu via JS e hanno un
+    riquadro [DA CONFERMARE], perché fuori dal menu altrimenti sembrerebbero confermati.
+46. **Lista di «Il Quartin» come link** con la tua mappa: Aperitivi → Salato, Vini al calice
+    e in quartino → Quartini, Cocktail → Imperdibili, Gelato → Gelato soft. I gruppi del menu
+    li crea il JS: senza JavaScript i link non portano da nessuna parte.
+47. **Testi sostituiti come chiesto**: frase di «Il Quartin», «Nuovo in Vanchiglia dal 10
+    settembre 2026.» (con il riquadro, la fonte resta una sola) e nota sugli allergeni.
+    Nota: la frase originale del loro menu («chi ha la salute è ricco e non lo sa…») non è
+    più nel sito.
+48. **Indice del menu sticky anche tra 768 e 1023 px** (a 62 px, una riga che scorre di
+    lato); torna su più righe solo da 1024 px. La frase dello zio Tony in «Vieni a trovarci»
+    ora ha lo stesso corsivo delle altre due (22→29 px), sul verde e senza riquadro.
+49. **Galleria 6fr/6fr con coppette in 4:5 e sgabello in 4:3**: a destra le due foto impilate
+    sono alte circa 1240 px contro i 750 dell'ippopotamo in 4:5. Pareggiare le righe
+    (come prima) avrebbe allungato l'ippopotamo fino a una striscia stretta (0,45), quindi
+    le righe ora sono automatiche e l'ippopotamo è **sticky**: resta in vista accanto alla
+    colonna destra mentre si scorre (verificato: fermo a 86 px dall'alto). Nello screenshot
+    statico a pagina intera sotto di lui si vede uno spazio vuoto. Il limite di 620 px non
+    scatta mai: la colonna è al massimo 572 px. Le coppette in 4:5 sono mostrate a 556 px da
+    un ritaglio di 383: si vedono morbide.
