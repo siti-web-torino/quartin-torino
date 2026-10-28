@@ -197,3 +197,5 @@ Fatte tutte. Dove ho dovuto scegliere un dettaglio, ecco come e perché.
     statico a pagina intera sotto di lui si vede uno spazio vuoto. Il limite di 620 px non
     scatta mai: la colonna è al massimo 572 px. Le coppette in 4:5 sono mostrate a 556 px da
     un ritaglio di 383: si vedono morbide.
+50. **Ippopotamo sticky nella galleria confermato da Alessandro** il 28/10/2026: resta così,
+    con le coppette in 4:5.
