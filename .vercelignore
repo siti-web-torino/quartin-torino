@@ -1,0 +1,7 @@
+# Restano nel repository ma non vanno online: immagini di partenza, script, screenshot,
+# note interne (studio, decisioni, rapporto, README) e istruzioni per Claude.
+img-originali
+strumenti
+docs
+*.md
+.claude
