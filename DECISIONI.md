@@ -220,3 +220,16 @@ Fatte tutte. Dove ho dovuto scegliere un dettaglio, ecco come e perché.
 54. `strumenti/anteprime.mjs` ora fotografa anche l'intro (a metà e piena,
     `docs/anteprime/quartin-*-intro-*.png`) e controlla che si chiuda da sola; per la pagina
     intera scopre tutte le rivelazioni prima dello screenshot.
+
+## Sito online senza riquadri (8/11/2026)
+
+55. **Tolti dalla vista tutti i [DA CONFERMARE]** su richiesta di Alessandro, perché il sito è
+    online. Non li ho cancellati: un interruttore `mostraDaConfermare` in cima a
+    `js/main.js` (ora `false`) li nasconde, insieme all'avviso «Demo» in alto e alle righe
+    che contenevano solo un riquadro («Oggi …», Orari, Instagram e altri contatti, la nota
+    sotto le fasce). Con `true` tornano tutti, per ricontrollare. Appena si inseriscono
+    orari o social, le loro righe ricompaiono da sole. Resta nel piede «Sito dimostrativo non
+    ufficiale».
+56. **Ora si vedono come certi dati che non lo sono**: telefono letto dal menu, data di
+    apertura (una sola fonte), prezzi e voci del menu, e il prezzo dei vini al calice, che
+    resta «5,9?» con il punto di domanda.

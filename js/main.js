@@ -6,6 +6,10 @@
    `confermato: true` o togli `incerto`.
    ===================================================================== */
 const QUARTIN = {
+  // false = sito online: i riquadri [DA CONFERMARE] e l'avviso «Demo» non si vedono, e le
+  // righe senza dato (orari, social) spariscono. true = si rivedono, per ricontrollare i dati.
+  mostraDaConfermare: false,
+
   via: 'Via Santa Giulia 21/D',
   zona: 'Vanchiglia, Torino',
   mappa: 'https://www.google.com/maps/search/?api=1&query=Quartin%2C%20Via%20Santa%20Giulia%2021%2FD%2C%20Torino',
@@ -410,6 +414,15 @@ function avanzamento() {
   aggiorna();
 }
 
+// Le righe che oggi contengono solo un riquadro tornano normali appena c'è il dato
+function righeConDato() {
+  if (QUARTIN.mostraDaConfermare) document.documentElement.classList.add('mostra-dc');
+  const ci = (sel, dato) => { if (dato) document.querySelectorAll(sel).forEach((el) => el.classList.remove('solo-dc')); };
+  ci('[data-q-oggi], [data-q-voce-orari]', QUARTIN.orari);
+  ci('[data-q-voce-social]', QUARTIN.social);
+}
+
+righeConDato();
 riempiTesti();
 riempiContatti();
 riempiPrezziFasce();

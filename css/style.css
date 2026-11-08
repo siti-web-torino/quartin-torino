@@ -159,6 +159,11 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1p
   letter-spacing: 0.01em;
   text-transform: none;
 }
+/* Sito online: i riquadri e gli spazi che contengono solo un riquadro sono nascosti.
+   Tornano visibili con `mostraDaConfermare: true` in js/main.js (classe .mostra-dc). */
+html:not(.mostra-dc) .dc,
+html:not(.mostra-dc) .solo-dc { display: none !important; }
+
 .dc-blocco {
   display: block;
   padding: var(--sp-xs) var(--sp-s);
@@ -376,7 +381,7 @@ html:not(.js) .nav-bottone { display: none; }
   flex-wrap: wrap;
   align-items: center;
   gap: var(--sp-2xs);
-  margin-block: var(--sp-xs) var(--sp-m);
+  margin-top: var(--sp-xs);
   font-weight: 600;
 }
 
@@ -1068,3 +1073,6 @@ html:not(.js) .nav-bottone { display: none; }
     scroll-behavior: auto !important;
   }
 }
+
+/* lo spazio sopra i pulsanti d'apertura non dipende dalla riga «Oggi», che può mancare */
+.benvenuto-testo .azioni { margin-top: var(--sp-m); }

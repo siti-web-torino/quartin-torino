@@ -160,3 +160,9 @@ e riaprila (o cancella `quartin-intro` dal sessionStorage). Con «riduci animazi
 sistema non parte, e le animazioni allo scorrimento sono spente. Tempi dell'intro: costanti
 `SALE`, `PAUSA`, `FINISCE`, `TIENI`, `ESCE` in `intro()` in `js/main.js`; elementi animati
 allo scorrimento: elenco `bersagli` in `rivelazioni()`.
+
+## Riquadri [DA CONFERMARE] nascosti
+
+Dall'8/11/2026 il sito è online e i riquadri non si vedono: `mostraDaConfermare: false` in
+cima a `js/main.js`. Mettilo a `true` per rivederli tutti (con l'avviso «Demo») mentre
+controlli i dati. L'elenco sopra resta valido: i dati sono ancora da confermare.
