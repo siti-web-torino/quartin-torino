@@ -199,3 +199,24 @@ Fatte tutte. Dove ho dovuto scegliere un dettaglio, ecco come e perché.
     un ritaglio di 383: si vedono morbide.
 50. **Ippopotamo sticky nella galleria confermato da Alessandro** il 28/10/2026: resta così,
     con le coppette in 4:5.
+
+## Intro e animazioni (8/11/2026)
+
+51. **Intro col logo, sul modello della Pescheria**: la sagoma del logo si riempie di rosso
+    come un bicchiere, con il bordo che ondeggia; si ferma un attimo a metà («mezzo pieno»,
+    il loro slogan), arriva in cima, compare «Chiacchiere da bar» e il foglio sale scoprendo
+    la pagina. Circa 2,5 secondi, si salta con un clic o un tasto. Solo alla prima visita della
+    sessione (`sessionStorage` `quartin-intro`) e mai con «riduci animazioni».
+52. **Sagoma del logo** (`img/logo-sagoma.webp`, 9 KB) ricavata da `logo.png` tenendo solo
+    i pixel rossi: ippopotamo e QUARTIN sono gli stessi della foto, con il filetto chiaro delle
+    lettere, niente ridisegnato. «CHIACCHIERE DA BAR», bianca sul vetro, si perde: nell'intro è
+    testo. Serve il logo vettoriale per fare di meglio.
+53. **Animazioni nella pagina**: apertura con la foto che arriva ruotando e i testi a
+    scaletta; titoli rossi che si scoprono da sinistra; voci, foto e contatti che salgono
+    allo scorrimento; frecce della lista che entrano; ippopotamo delle frasi dello zio Tony che
+    arriva camminando; nelle fasce rosse le virgolette si aprono e la domanda cresce; ovali dei
+    prezzi che compaiono uno dopo l'altro; barra rossa di avanzamento in alto. Le classi le
+    mette il JS: senza JS o con «riduci animazioni» tutto è subito visibile e fermo.
+54. `strumenti/anteprime.mjs` ora fotografa anche l'intro (a metà e piena,
+    `docs/anteprime/quartin-*-intro-*.png`) e controlla che si chiuda da sola; per la pagina
+    intera scopre tutte le rivelazioni prima dello screenshot.

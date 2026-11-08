@@ -88,3 +88,23 @@ for (const { da, a, ritaglio } of foto) {
     .resize(64, 64).png().toFile(path.join(radice, 'favicon.png'));
   console.log('favicon.png  64×64');
 }
+
+// Sagoma del logo per l'intro: dalla foto della vetrofania (logo.png) tengo solo i pixel
+// rossi (ippopotamo e QUARTIN, con il loro filetto chiaro) e tolgo il fondo. Nessun
+// ridisegno: è la stessa immagine resa trasparente. «CHIACCHIERE DA BAR» è bianca e si perde.
+// Il file è bianco con trasparenza: nel CSS si usa come mask-image e si colora di rosso.
+{
+  const zona = { left: 95, top: 135, width: 520, height: 330 };
+  const { data, info } = await sharp(path.join(ORIGINALI, 'logo.png')).flatten({ background: '#ffffff' })
+    .extract(zona).raw().toBuffer({ resolveWithObject: true });
+  const px = info.width * info.height;
+  const rgba = Buffer.alloc(px * 4, 255);
+  for (let i = 0; i < px; i++) {
+    const r = data[i * 3], g = data[i * 3 + 1], b = data[i * 3 + 2];
+    const rosso = r - Math.max(g, b); // ~160 sull'ippopotamo, ~120 sulle lettere, < 40 sul fondo
+    rgba[i * 4 + 3] = Math.max(0, Math.min(255, Math.round(((rosso - 45) / 50) * 255)));
+  }
+  const out = await sharp(rgba, { raw: { width: info.width, height: info.height, channels: 4 } })
+    .webp({ lossless: true }).toFile(path.join(USCITA, 'logo-sagoma.webp'));
+  console.log(`logo-sagoma.webp  ${out.width}×${out.height}  ${(out.size / 1024).toFixed(0)} KB`);
+}

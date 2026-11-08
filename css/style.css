@@ -921,7 +921,148 @@ html:not(.js) .nav-bottone { display: none; }
   .piede-demo { justify-self: end; text-align: right; }
 }
 
+/* ================= Intro e animazioni ================= */
+:root {
+  --morbido: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --molla: cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+/* Intro: la sagoma del logo (logo.png senza fondo) si riempie di rosso */
+.intro {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  place-content: center;
+  justify-items: center;
+  gap: var(--sp-m);
+  background: var(--carta);
+}
+.intro-si .intro { display: grid; }
+.intro-si body { overflow: hidden; }
+.intro-logo {
+  position: relative;
+  width: min(72vw, 26rem);
+  aspect-ratio: 520 / 330;
+}
+.intro-sagoma {
+  position: absolute;
+  inset: 0;
+  background: var(--rosso);
+  -webkit-mask: url("../img/logo-sagoma.webp") center / contain no-repeat;
+  mask: url("../img/logo-sagoma.webp") center / contain no-repeat;
+}
+.intro-sagoma-vuota { opacity: 0.14; }
+.intro-sagoma-piena { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
+.intro-firma {
+  /* la sagoma ha in fondo lo spazio della scritta bianca originale, che è andata persa */
+  margin-top: calc(var(--sp-l) * -1);
+  color: var(--rosso);
+  font-size: var(--fs--1);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.4s, transform 0.5s var(--morbido);
+}
+.intro.piena .intro-firma { opacity: 1; transform: none; }
+/* uscita: il foglio sale e scopre la pagina */
+.intro.esce {
+  transform: translateY(-100%);
+  transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+/* Barra rossa di avanzamento sopra la testata */
+.avanzamento {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 55;
+  height: 3px;
+  background: var(--rosso);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--avanzamento, 0));
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Apertura: la foto arriva ruotando, i testi salgono uno dopo l'altro */
+  .js .benvenuto-foto {
+    opacity: 0;
+    transform: translateY(2rem) rotate(calc(var(--giro) * -4));
+    transition: opacity 0.9s var(--morbido) 0.15s, transform 1.1s var(--morbido) 0.15s;
+  }
+  .pronto .benvenuto-foto { opacity: 1; transform: rotate(var(--giro)); }
+  .js .benvenuto-testo > * {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: opacity 0.7s var(--morbido), transform 0.8s var(--morbido);
+    transition-delay: calc(var(--r, 0) * 90ms + 250ms);
+  }
+  .benvenuto-testo > :nth-child(2) { --r: 1; }
+  .benvenuto-testo > :nth-child(3) { --r: 2; }
+  .benvenuto-testo > :nth-child(4) { --r: 3; }
+  .benvenuto-testo > :nth-child(5) { --r: 4; }
+  .pronto .benvenuto-testo > * { opacity: 1; transform: none; }
+
+  /* Rivelazioni allo scorrimento: il JS mette .rivela e poi .in */
+  .js .rivela {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition: opacity 0.8s var(--morbido), transform 0.9s var(--morbido);
+    transition-delay: calc(var(--r, 0) * 90ms);
+  }
+  .js .rivela.in { opacity: 1; transform: none; }
+
+  /* le foto inclinate tornano alla loro inclinazione */
+  .js .stampa-inclinata.rivela { transform: translateY(2rem) rotate(calc(var(--giro) * -3)); }
+  .js .stampa-inclinata.rivela.in { transform: rotate(var(--giro)); }
+
+  /* i titoli rossi si scoprono da sinistra, come una scritta passata col pennarello */
+  .js .titolo-sezione.rivela {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(-0.3em 100% -0.3em -0.3em);
+    transition: clip-path 1s var(--morbido);
+  }
+  .js .titolo-sezione.rivela.in { clip-path: inset(-0.3em -0.3em -0.3em -0.3em); }
+
+  /* frecce della lista che entrano da sinistra */
+  .js .offerta li.rivela .offerta-freccia { transform: translateX(-1.5rem); opacity: 0; transition: transform 0.7s var(--morbido) 0.35s, opacity 0.5s 0.35s; }
+  .js .offerta li.rivela.in .offerta-freccia { transform: none; opacity: 1; }
+  .js .offerta li.rivela.in a:hover .offerta-freccia { transform: translateX(0.25em); transition-delay: 0s; }
+
+  /* l'ippopotamo delle frasi dello zio Tony arriva camminando */
+  .js .detto.rivela img { transform: translateX(-3rem); transition: transform 1.3s var(--morbido) 0.3s; }
+  .js .detto.rivela.in img { transform: none; }
+
+  /* fasce rosse: le virgolette si aprono, la domanda cresce */
+  .js .cartolina-dentro.rivela { transform: none; }
+  .js .cartolina-dentro.rivela::before,
+  .js .cartolina-dentro.rivela::after { opacity: 0; transition: opacity 0.6s, transform 0.9s var(--molla); transition-delay: 0.25s; }
+  .js .cartolina-dentro.rivela::before { transform: translateX(-0.4em) rotate(-25deg); }
+  .js .cartolina-dentro.rivela::after { transform: translateX(0.4em) rotate(25deg); }
+  .js .cartolina-dentro.rivela.in::before,
+  .js .cartolina-dentro.rivela.in::after { opacity: 1; transform: none; }
+  .js .cartolina-dentro.rivela .cartolina-domanda { display: inline-block; scale: 0.82; transition: scale 1s var(--molla); }
+  .js .cartolina-dentro.rivela.in .cartolina-domanda { scale: 1; }
+
+  /* prezzi del menu: gli ovali «si disegnano» uno dopo l'altro */
+  .js .menu-gruppo.rivela .prezzo,
+  .js .cartolina-dentro.rivela .prezzo {
+    opacity: 0;
+    scale: 0.4;
+    transition: scale 0.55s var(--molla), opacity 0.3s;
+    transition-delay: calc(var(--i, 0) * 45ms + 300ms);
+  }
+  .js .menu-gruppo.rivela.in .prezzo,
+  .js .cartolina-dentro.rivela.in .prezzo { opacity: 1; scale: 1; }
+
+  .avanzamento { transition: transform 0.1s linear; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .intro, .avanzamento { display: none !important; }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;

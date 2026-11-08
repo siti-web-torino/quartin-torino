@@ -32,8 +32,25 @@ try {
     const pagina = await browser.newPage({ viewport: { width: larghezza, height: larghezza < 600 ? 844 : 800 }, deviceScaleFactor: 1 });
     pagina.on('console', (m) => { if (m.type() === 'error') errori.push(`${larghezza}px: ${m.text()}`); });
     pagina.on('pageerror', (e) => errori.push(`${larghezza}px: ${e.message}`));
-    await pagina.goto(`http://localhost:${porta}/`, { waitUntil: 'networkidle' });
+
+    // 1) l'intro a metà riempimento («mezzo pieno») e a fine corsa
+    await pagina.goto(`http://localhost:${porta}/`, { waitUntil: 'domcontentloaded' });
     await pagina.evaluate(() => document.fonts.ready);
+    for (const [ms, nome] of [[1000, 'meta'], [1950, 'piena']]) {
+      await pagina.waitForTimeout(ms - (nome === 'piena' ? 1000 : 0));
+      await pagina.screenshot({ path: path.join(uscita, `quartin-${larghezza}-intro-${nome}${suffisso}.png`) });
+    }
+    await pagina.waitForTimeout(2500);
+    const introSparita = await pagina.evaluate(() => !document.getElementById('intro') && document.documentElement.classList.contains('pronto'));
+    if (!introSparita) errori.push(`${larghezza}px: l'intro non si chiude da sola`);
+    console.log(`intro ${larghezza}px: fotografata a metà e piena, ${introSparita ? 'si chiude da sola' : 'NON si chiude'}`);
+
+    // 2) la pagina intera: intro già vista nella sessione, e tutte le rivelazioni scoperte
+    //    (con fullPage gli elementi sotto la piega non «entrano» mai nello schermo)
+    await pagina.reload({ waitUntil: 'networkidle' });
+    await pagina.evaluate(() => document.fonts.ready);
+    await pagina.evaluate(() => document.querySelectorAll('.rivela').forEach((el) => el.classList.add('in')));
+    await pagina.waitForTimeout(1600);
     // Le immagini lazy: scorro fino in fondo per caricarle tutte.
     await pagina.evaluate(async () => {
       for (const img of document.images) img.loading = 'eager';

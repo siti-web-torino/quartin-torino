@@ -310,9 +310,114 @@ function navigazione() {
   });
 }
 
+// Intro: la sagoma del logo si riempie di rosso con il bordo che ondeggia, si ferma a metà
+// («mezzo pieno»), arriva in cima, poi il foglio sale. Un clic o un tasto la saltano.
+// Gira solo se nell'<head> è stata messa la classe intro-si (prima visita, niente
+// «riduci animazioni»); alla fine chiama `fine`.
+function intro(fine) {
+  const html = document.documentElement;
+  const el = document.getElementById('intro');
+  const pieno = document.getElementById('intro-pieno');
+  if (!el || !pieno || !html.classList.contains('intro-si')) {
+    if (el) el.remove();
+    fine();
+    return;
+  }
+  const SALE = 850, PAUSA = 380, FINISCE = 750, TIENI = 500, ESCE = 750;
+  const dolce = (x) => 1 - (1 - x) ** 3;
+  const inizio = performance.now();
+  let uscita = false;
+
+  const bordo = (livello, t) => {
+    const y = 104 - livello * 112; // in %, sotto lo 0 a fine corsa così l'onda copre tutto
+    const punti = [];
+    for (let i = 0; i <= 20; i++) punti.push(`${i * 5}% ${(y + 2.2 * Math.sin(i * 0.9 + t / 160)).toFixed(2)}%`);
+    return `polygon(${punti.join(',')}, 100% 100%, 0 100%)`;
+  };
+  const esci = () => {
+    if (uscita) return;
+    uscita = true;
+    pieno.style.clipPath = 'none';
+    el.classList.add('piena', 'esce');
+    html.classList.remove('intro-si');
+    try { sessionStorage.setItem('quartin-intro', '1'); } catch (e) { /* senza storage la rivedrà: pazienza */ }
+    fine();
+    setTimeout(() => el.remove(), ESCE + 50);
+  };
+  const passo = (ora) => {
+    if (uscita) return;
+    const t = ora - inizio;
+    let livello;
+    if (t < SALE) livello = 0.5 * dolce(t / SALE);
+    else if (t < SALE + PAUSA) livello = 0.5;
+    else if (t < SALE + PAUSA + FINISCE) livello = 0.5 + 0.5 * dolce((t - SALE - PAUSA) / FINISCE);
+    else {
+      livello = 1;
+      el.classList.add('piena');
+      if (t > SALE + PAUSA + FINISCE + TIENI) return esci();
+    }
+    pieno.style.clipPath = bordo(livello, t);
+    requestAnimationFrame(passo);
+  };
+  el.addEventListener('pointerdown', esci);
+  document.addEventListener('keydown', esci, { once: true });
+  setTimeout(esci, 6000); // se requestAnimationFrame si ferma (scheda in secondo piano)
+  requestAnimationFrame(passo);
+}
+
+// Rivelazioni allo scorrimento: le classi le mette solo il JS, quindi senza JS o con
+// «riduci animazioni» (il CSS non anima niente) tutto è visibile da subito.
+function rivelazioni() {
+  if (!('IntersectionObserver' in window)) return;
+  const bersagli = [
+    '.titolo-sezione', '.attacco', '.quartin-apertura', '.offerta li', '.detto', '.cartolina-dentro',
+    '.da-bere .dc-blocco', '.menu-indice', '.menu-gruppo', '.foto-menu', '.menu-nota', '.locale-manca',
+    '.galleria figure', '.indirizzo', '.vieni .bottone-carta', '.vieni-vetrina', '.contatti-voce',
+  ];
+  const elementi = [...new Set(document.querySelectorAll(bersagli.join(',')))];
+  // ritardo a scaletta tra fratelli vicini (massimo 5 passi)
+  const contatori = new Map();
+  for (const el of elementi) {
+    const n = contatori.get(el.parentElement) || 0;
+    contatori.set(el.parentElement, n + 1);
+    el.style.setProperty('--r', Math.min(n, 5));
+    el.querySelectorAll('.prezzo').forEach((p, i) => p.style.setProperty('--i', Math.min(i, 12)));
+    el.classList.add('rivela');
+  }
+  const osservatore = new IntersectionObserver((voci) => {
+    for (const v of voci) {
+      if (!v.isIntersecting) continue;
+      v.target.classList.add('in');
+      osservatore.unobserve(v.target);
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  elementi.forEach((el) => osservatore.observe(el));
+}
+
+// Barra rossa in alto che segue lo scorrimento della pagina
+function avanzamento() {
+  const barra = document.querySelector('.avanzamento');
+  if (!barra) return;
+  let inAttesa = false;
+  const aggiorna = () => {
+    inAttesa = false;
+    const corsa = document.documentElement.scrollHeight - window.innerHeight;
+    barra.style.setProperty('--avanzamento', corsa > 0 ? (window.scrollY / corsa).toFixed(4) : '0');
+  };
+  window.addEventListener('scroll', () => {
+    if (!inAttesa) { inAttesa = true; requestAnimationFrame(aggiorna); }
+  }, { passive: true });
+  aggiorna();
+}
+
 riempiTesti();
 riempiContatti();
 riempiPrezziFasce();
 riempiMenu();
 indiceAttivo();
 navigazione();
+avanzamento();
+intro(() => {
+  document.documentElement.classList.add('pronto');
+  rivelazioni();
+});

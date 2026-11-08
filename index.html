@@ -36,10 +36,22 @@
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="preload" href="fonts/archivo-variabile.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- L'intro parte solo alla prima visita della sessione e mai con «riduci animazioni» -->
+  <script>(function (d) { d.classList.add('js'); try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('quartin-intro')) d.classList.add('intro-si'); } catch (e) {} })(document.documentElement);</script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
+  <!-- Intro: il logo si riempie di rosso come un bicchiere (prima mezzo pieno, poi pieno),
+       poi la pagina sale. Si salta con un clic o un tasto. La sagoma è logo.png senza fondo. -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-logo">
+      <div class="intro-sagoma intro-sagoma-vuota"></div>
+      <div class="intro-sagoma intro-sagoma-piena" id="intro-pieno"></div>
+    </div>
+    <p class="intro-firma">Chiacchiere da bar</p>
+  </div>
+  <div class="avanzamento" aria-hidden="true"></div>
+
   <a class="salta" href="#contenuto">Vai al contenuto</a>
 
   <p class="avviso-demo">

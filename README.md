@@ -152,3 +152,11 @@ Nella pagina sono tutti riquadri gialli tratteggiati.
 Fuori dalla pagina, da chiedere comunque: logo in vettoriale (SVG/PDF), permesso di usare
 le foto (sono screenshot, probabilmente dal loro Instagram) e conferma che la donna
 ritagliata via da `4.png` non vada mostrata.
+
+## Intro e animazioni
+
+L'intro col logo parte solo alla prima visita della sessione: per rivederla chiudi la scheda
+e riaprila (o cancella `quartin-intro` dal sessionStorage). Con «riduci animazioni» attivo nel
+sistema non parte, e le animazioni allo scorrimento sono spente. Tempi dell'intro: costanti
+`SALE`, `PAUSA`, `FINISCE`, `TIENI`, `ESCE` in `intro()` in `js/main.js`; elementi animati
+allo scorrimento: elenco `bersagli` in `rivelazioni()`.
